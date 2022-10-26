@@ -1,0 +1,74 @@
+{% extends 'shop/basic.html' %}
+
+{% block title%} About Us{% endblock %}
+{% block body %}
+
+
+
+
+<main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">My Awesome Cart!</h1>
+      <p>Pakistan is still largely a cash-based, informal economy. The majority of transactions are conducted in cash, except for large ones requiring a bank draft or pay order. Several studies suggest that up to 60 percent of the economy is informal, with the majority of local companies, particularly SMEs, undocumented and outside the tax net.
+
+A number of government departments have started to offer services via the Internet. In the private sector, four Pakistani airlines now offer e-ticketing and almost all local banks offer online banking services. This segment of the economy is expected to grow steadily as there are approximately 50 million Internet subscribers in Pakistan, a figure that is expected to double over the next five years. As per local trade resources, Pakistan is the 46th largest market for eCommerce with a revenue of US$4 billion in 2020.
+
+There are also more than 45 million Facebook users in Pakistan and several local companies now use social media to promote their products and services. According to the Pakistan Telecommunication Authority (PTA), the number of 3G and 4G users in Pakistan reached 98.12 million by end of March 2021, and the mobile banking sector shows promise.
+        My Awesome Cart website is just a little bit effort to cash this opportunity. This is a university based project and can be further enhanced on professional level.
+
+</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+
+
+    </div>
+
+    <hr>
+
+  </div> <!-- /container -->
+
+</main>
+{% endblock %}
+
+{% block js %}
+<script>
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+console.log(cart);
+var sum = 0;
+if ($.isEmptyObject(cart)) {
+    //if object is empty
+    mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+    $('#items').append(mystr);
+} else {
+    for (item in cart) {
+        let name = cart[item][1];
+        let qty = cart[item][0];
+        sum = sum + qty;
+        mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${name}
+                    <span class="badge badge-primary badge-pill">${qty}</span>
+                </li>`
+        $('#items').append(mystr);
+    }
+}
+document.getElementById('cart').innerHTML = sum;
+$('#itemsJson').val(JSON.stringify(cart));
+{% if thank %}
+alert('Thanks for ordering with us. Your order is is {{id}}. Use it to track your order using our order tracker');
+localStorage.clear();
+document.location = "/shop";
+{% endif %}
+</script>
+{% endblock %}
+
